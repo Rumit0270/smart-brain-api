@@ -11,6 +11,12 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_HOST: ${POSTGRES_HOST}
+
+  # Redis service
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
     
   # API service
   api:
@@ -21,6 +27,7 @@ services:
       - "3000:3000"
     depends_on:
       - db
+      - redis
     working_dir: /api
     volumes:
       - ./:/api
@@ -31,3 +38,4 @@ services:
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_HOST: ${POSTGRES_HOST}
       POSTGRES_URI: ${POSTGRES_URI}
+      REDIS_URI: ${REDIS_URI}
